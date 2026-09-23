@@ -2,3 +2,12 @@
 .brand > span:last-child { font-size: 0; }
 .brand > span:last-child::after { content: 'Emmy J Coding'; font-size: 17px; letter-spacing: -.04em; }
 .hero-banner { background-image: linear-gradient(90deg, #2e3d38 10%, #2e3d38c7 55%, #2e3d3855), url('/emmy-j-brand.png'); background-size: cover; background-position: center 34%; }
+.sign-in-button { border: 1px solid #c9c6bd; background: #fbfaf7; color: #1d211d; border-radius: 4px; padding: 9px 13px; font-size: 11px; }
+.sign-in-button span { color: #df7555; margin-left: 10px; }
+.auth-view { min-height: calc(100vh - 83px); display: grid; place-items: center; padding: 42px 20px; background: radial-gradient(circle at 80% 20%, #e6edb8 0, transparent 27%), #f4f1ec; }
+.auth-card { width: min(430px, 100%); background: #fbfaf7; border: 1px solid #e3dfd5; border-radius: 6px; padding: 38px; box-shadow: 0 20px 70px #1d211d12; }
+.auth-mark { width: 40px; height: 40px; display: grid; place-items: center; border-radius: 50%; background: #d7f34a; color: #1d211d; font: italic 28px Georgia; margin-bottom: 24px; }
+.auth-card h1 { margin: 0; font-size: 30px; letter-spacing: -.06em; }.auth-card .subtitle { margin-bottom: 25px; }
+.google-button { width: 100%; border: 1px solid #d8d5cd; background: #fff; border-radius: 4px; padding: 12px; color: #30352e; font-size: 12px; }.google-button span { font-weight: 700; margin-right: 12px; color: #4285f4; }
+.auth-divider { display: flex; align-items: center; gap: 10px; color: #a1a49c; font: 9px 'DM Mono'; text-transform: uppercase; margin: 23px 0; }.auth-divider:before,.auth-divider:after { content: ''; height: 1px; background: #e5e1d8; flex: 1; }
+.auth-card label { display: block; color: #5e645a; font-size: 11px; margin-top: 14px; }.auth-card input { display: block; width: 100%; border: 1px solid #dedbd3; background: #fff; border-radius: 3px; padding: 11px; margin-top: 6px; font: 12px 'DM Sans'; outline: 0; }.auth-card input:focus { border-color: #9eb23d; }.auth-submit { width: 100%; margin-top: 22px; }.auth-switch { text-align: center; color: #898d84; font-size: 11px; margin: 22px 0 0; }.auth-switch button { border: 0; background: none; color: #cc6749; font-size: 11px; padding: 0; }
