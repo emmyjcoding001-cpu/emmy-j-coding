@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Emmy J Coding builds websites and apps people remember.">
+  <title>Emmy J Coding | Build something memorable</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:wght@400;500;700&family=Playfair+Display:ital,wght@0,600;1,600&display=swap');
+    :root { --ink:#1d211d; --lime:#d7f34a; --cream:#f4f1ec; --coral:#ee9d83; --muted:#a8b0a5; }
+    * { box-sizing:border-box; }
+    body { margin:0; min-height:100vh; background:var(--ink); color:#f8f5f0; font-family:'DM Sans',sans-serif; }
+    .flyer { width:min(1080px,100%); min-height:100vh; margin:auto; overflow:hidden; position:relative; padding:42px 58px 36px; background:linear-gradient(120deg,#1d211d 0%,#28372f 62%,#526a48 100%); }
+    .flyer:before { content:''; position:absolute; width:480px; height:480px; border:1px solid #a7bd4a55; border-radius:50%; right:-150px; top:135px; box-shadow:0 0 0 30px #1d211d12,0 0 0 31px #a7bd4a42,0 0 0 87px #1d211d12,0 0 0 88px #a7bd4a28; transform:rotate(29deg); }
+    .flyer:after { content:'e'; position:absolute; right:108px; top:185px; color:var(--coral); font:italic 260px Georgia; opacity:.88; }
+    header,.hero,.feature-row,footer { position:relative; z-index:1; }
+    header { display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid #ffffff25; padding-bottom:28px; }
+    .logo { display:flex; align-items:center; gap:10px; font-weight:700; font-size:20px; letter-spacing:-.05em; }.logo-mark { width:31px; height:31px; border-radius:50%; display:grid; place-items:center; background:var(--lime); color:var(--ink); font:italic 23px Georgia; }.logo small { color:var(--lime); font:500 9px 'DM Mono'; letter-spacing:.1em; text-transform:uppercase; margin-left:4px; }.contact { color:var(--lime); font:500 10px 'DM Mono'; letter-spacing:.08em; text-transform:uppercase; text-decoration:none; }
+    .hero { padding:80px 0 66px; max-width:650px; }.kicker { margin:0 0 18px; color:var(--lime); font:500 11px 'DM Mono'; letter-spacing:.16em; }.hero h1 { margin:0; font-size:clamp(48px,7vw,82px); line-height:.96; letter-spacing:-.08em; max-width:680px; }.hero h1 em { color:var(--coral); font-family:'Playfair Display',Georgia,serif; font-weight:600; }.hero p { max-width:475px; color:#c5cec0; font-size:16px; line-height:1.6; margin:26px 0 0; }.cta { display:inline-flex; align-items:center; gap:28px; margin-top:30px; padding:14px 17px; background:var(--lime); color:var(--ink); text-decoration:none; border-radius:3px; font-weight:700; font-size:12px; }.cta span { font-size:18px; }
+    .feature-row { display:grid; grid-template-columns:repeat(4,1fr); gap:10px; padding-top:30px; border-top:1px solid #ffffff25; }.feature { border-left:2px solid var(--lime); padding:8px 14px; }.feature strong,.feature span { display:block; }.feature strong { font-size:13px; }.feature span { color:#aeb9ac; font-size:11px; line-height:1.45; margin-top:5px; }
+    footer { display:flex; justify-content:space-between; align-items:end; margin-top:70px; color:#9ba59a; font:10px 'DM Mono'; letter-spacing:.05em; }.url { color:#f8f5f0; font-size:12px; }.tag { color:var(--lime); }
+    @media(max-width:650px){.flyer{padding:27px 24px 28px}.contact{font-size:9px}.hero{padding:72px 0 60px}.hero h1{font-size:52px}.hero p{font-size:14px}.flyer:after{right:-12px;top:310px;font-size:180px;opacity:.45}.flyer:before{right:-240px;top:260px}.feature-row{grid-template-columns:1fr 1fr;gap:18px}.feature{padding-left:10px}footer{display:block;margin-top:55px}.url{margin-bottom:12px}}
+  </style>
+</head>
+<body>
+  <main class="flyer">
+    <header><div class="logo"><span class="logo-mark">e</span><span>Emmy J <small>Coding</small></span></div><a class="contact" href="https://wa.me/2348052586788">WhatsApp us ↗</a></header>
+    <section class="hero"><p class="kicker">YOUR NEXT DIGITAL CHAPTER</p><h1>Build a website<br>people <em>remember.</em></h1><p>Emmy J Coding turns your idea into a polished website, web app, and downloadable mobile experience, from first brief to final launch.</p><a class="cta" href="https://emmy-j-coding.onrender.com">Start your website <span>→</span></a></section>
+    <section class="feature-row"><div class="feature"><strong>Choose your direction</strong><span>Barbers, restaurants, stores, portfolios and more.</span></div><div class="feature"><strong>Track the progress</strong><span>See every step from brief to launch in your workspace.</span></div><div class="feature"><strong>Stay in the room</strong><span>Message the project team inside the app or WhatsApp.</span></div><div class="feature"><strong>Launch everywhere</strong><span>Websites, web apps and installable Android packages.</span></div></section>
+    <footer><div class="url">emmy-j-coding.onrender.com</div><div><span class="tag">EMMY J CODING</span> · Digital experiences with intention</div></footer>
+  </main>
+</body>
+</html>
