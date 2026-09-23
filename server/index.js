@@ -11,7 +11,9 @@ import { Strategy as GoogleStrategy } from 'passport-google-oauth20'
 const app = express()
 const port = process.env.PORT || 4000
 const distPath = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../dist')
-const pool = mysql.createPool({ host: process.env.MYSQL_HOST || process.env.MYSQLHOST, port: process.env.MYSQL_PORT || process.env.MYSQLPORT || 3306, database: process.env.MYSQL_DATABASE || process.env.MYSQLDATABASE, user: process.env.MYSQL_USER || process.env.MYSQLUSER, password: process.env.MYSQL_PASSWORD || process.env.MYSQLPASSWORD, waitForConnections: true, connectionLimit: 10 })
+const publicDatabaseUrl = process.env.MYSQL_PUBLIC_URL || process.env.MYSQL_URL
+const databaseConfig = publicDatabaseUrl ? publicDatabaseUrl : { host: process.env.MYSQL_HOST || process.env.MYSQLHOST, port: process.env.MYSQL_PORT || process.env.MYSQLPORT || 3306, database: process.env.MYSQL_DATABASE || process.env.MYSQLDATABASE, user: process.env.MYSQL_USER || process.env.MYSQLUSER, password: process.env.MYSQL_PASSWORD || process.env.MYSQLPASSWORD }
+const pool = mysql.createPool({ ...databaseConfig, waitForConnections: true, connectionLimit: 10 })
 app.use(cors({ origin: process.env.CLIENT_ORIGIN || 'http://localhost:5173' }))
 app.use(express.json())
 app.use(session({ secret: process.env.SESSION_SECRET || process.env.JWT_SECRET || 'change-this-session-secret', resave: false, saveUninitialized: false, cookie: { httpOnly: true, secure: process.env.NODE_ENV === 'production', sameSite: 'lax', maxAge: 1000 * 60 * 60 * 24 * 7 } }))
