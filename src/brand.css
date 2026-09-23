@@ -1,0 +1,4 @@
+.brand small { color: #9aa09a; font: 500 9px 'DM Mono', monospace; letter-spacing: .12em; text-transform: uppercase; margin-left: 3px; }
+.brand > span:last-child { font-size: 0; }
+.brand > span:last-child::after { content: 'Emmy J Coding'; font-size: 17px; letter-spacing: -.04em; }
+.hero-banner { background-image: linear-gradient(90deg, #2e3d38 10%, #2e3d38c7 55%, #2e3d3855), url('/emmy-j-brand.png'); background-size: cover; background-position: center 34%; }

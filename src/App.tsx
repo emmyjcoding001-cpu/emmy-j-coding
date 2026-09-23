@@ -1,0 +1,53 @@
+import { useState } from 'react'
+import './App.css'
+import './brand.css'
+
+type View = 'overview' | 'projects' | 'messages' | 'settings'
+const projects = [
+  { name: 'Emmy J Studio', type: "Barber's studio", progress: 78, tag: 'In design', tone: 'coral', date: 'Updated 2h ago' },
+  { name: 'Sunday Table', type: 'Restaurant & food', progress: 42, tag: 'Content needed', tone: 'lime', date: 'Updated yesterday' },
+]
+const types = [
+  ['✦', "Barber's studio", 'Bookings, gallery & services', 'coral'], ['◒', 'Restaurant & food', 'Menu, reservations & delivery', 'lime'],
+  ['⌁', 'Creative portfolio', 'Showcase your best work', 'blue'], ['▧', 'Online store', 'Products, payments & growth', 'gold'],
+]
+
+function App() {
+  const [view, setView] = useState<View>('overview')
+  const [slide, setSlide] = useState(0)
+  const [booking, setBooking] = useState(false)
+  const [profile, setProfile] = useState(false)
+  const [toast, setToast] = useState('')
+  const notify = (message: string) => { setToast(message); window.setTimeout(() => setToast(''), 2800) }
+  const go = (next: View) => setView(next)
+  return <div className="app-shell">
+    <aside className="sidebar">
+      <div className="brand"><span className="brand-mark">e</span><span>emmy<span className="brand-dot">.</span>j</span></div>
+      <div className="workspace-label">YOUR WORKSPACE</div>
+      <nav>
+        <button className={view === 'overview' ? 'nav-item active' : 'nav-item'} onClick={() => go('overview')}><span>⌂</span> Overview</button>
+        <button className={view === 'projects' ? 'nav-item active' : 'nav-item'} onClick={() => go('projects')}><span>▦</span> My websites <b>2</b></button>
+        <button className={view === 'messages' ? 'nav-item active' : 'nav-item'} onClick={() => go('messages')}><span>◌</span> Messages <b className="new-count">3</b></button>
+        <button className={view === 'settings' ? 'nav-item active' : 'nav-item'} onClick={() => go('settings')}><span>⚙</span> Settings</button>
+      </nav>
+      <div className="sidebar-bottom"><div className="help-card"><span className="sparkle">✦</span><strong>Need a hand?</strong><p>Chat with our project team.</p><button onClick={() => go('messages')}>Open chat <span>→</span></button><a className="whatsapp-link" href="https://wa.me/2348052586788" target="_blank" rel="noreferrer">WhatsApp support <span>↗</span></a></div><div className="sidebar-footer"><span>© 2024 Emmy J</span><span className="online-dot">●</span> All systems live</div></div>
+    </aside>
+    <main className="main-content">
+      <header className="topbar"><div className="mobile-brand brand"><span className="brand-mark">e</span><span>emmy<span className="brand-dot">.</span>j</span></div><div className="breadcrumb">Workspace <span>/</span> {view}</div><div className="top-actions"><button className="icon-button" aria-label="Notifications" onClick={() => notify('You are all caught up')}>♢<i /></button><button className="profile-trigger" onClick={() => setProfile(!profile)}><span className="avatar">EA</span><span className="profile-name">Emmanuel A.</span><span className="chevron">⌄</span></button>{profile && <div className="profile-menu"><strong>Emmanuel A.</strong><button onClick={() => go('settings')}>Edit profile</button><button onClick={() => notify('Signed out of preview mode')}>Sign out</button></div>}</div></header>
+      {view === 'overview' && <Overview openBooking={() => setBooking(true)} go={go} slide={slide} setSlide={setSlide} />}
+      {view === 'projects' && <PageView title="All websites" eyebrow="YOUR WORKSPACE" subtitle="Every idea, in one place."><div className="project-grid full-grid">{projects.concat([{ name: 'Coming soon', type: 'Your next big idea', progress: 0, tag: 'Not started', tone: 'blue', date: 'Ready when you are' }]).map((p) => <ProjectCard key={p.name} project={p} />)}</div></PageView>}
+      {view === 'messages' && <section className="page-view empty-view"><div className="empty-icon">◌</div><p className="eyebrow">PROJECT TEAM</p><h1>Your creative room</h1><p className="subtitle">Your conversations with the Emmy J team will appear here.</p><button className="primary-button" onClick={() => notify('Message composer is ready for your project')}>Start a conversation →</button></section>}
+      {view === 'settings' && <PageView title="Settings" eyebrow="ACCOUNT" subtitle="Make your workspace feel like yours."><div className="settings-card"><div className="settings-avatar avatar">EA</div><div><h3>Emmanuel A.</h3><p>Personal profile</p></div><button className="text-button" onClick={() => notify('Profile editor opened')}>Edit profile →</button></div><div className="settings-card"><div><h3>Project updates</h3><p>Get an email when your website moves forward.</p></div><label className="toggle"><input type="checkbox" defaultChecked /><span /></label></div><div className="settings-card"><div><h3>Talk to Emmy J</h3><p>Reach the project team directly on WhatsApp.</p></div><a className="secondary-button" href="https://wa.me/2348052586788" target="_blank" rel="noreferrer">Open WhatsApp</a></div><div className="settings-card"><div><h3>App experience</h3><p>Install Emmy J as a focused app on your device.</p></div><button className="secondary-button" onClick={() => notify('Install prompt will appear when the app is published')}>Install app</button></div></PageView>}
+    </main>
+    {booking && <div className="modal-backdrop" onClick={() => setBooking(false)}><div className="booking-modal" onClick={(event) => event.stopPropagation()}><button className="close-button" onClick={() => setBooking(false)}>×</button><p className="eyebrow">NEW PROJECT</p><h2>Let’s make your idea real.</h2><p>Choose a starting point. We’ll ask the right questions next.</p><div className="type-grid">{types.map(([icon, title, detail, tone]) => <button key={title} className="type-choice" onClick={() => { setBooking(false); go('projects'); notify(`${title} brief started`) }}><span className={`type-icon ${tone}`}>{icon}</span><strong>{title}</strong><small>{detail}</small><span className="choice-arrow">↗</span></button>)}</div><button className="custom-brief" onClick={() => { setBooking(false); notify('Custom brief started') }}>I have a different idea <span>→</span></button></div></div>}
+    {toast && <div className="toast">✦ {toast}</div>}
+  </div>
+}
+
+function Overview({ openBooking, go, slide, setSlide }: { openBooking: () => void, go: (view: View) => void, slide: number, setSlide: (slide: number) => void }) {
+  return <><section className="welcome-row"><div><p className="eyebrow">WEDNESDAY, SEPTEMBER 23, 2026</p><h1>Good morning, Emmanuel <span>✦</span></h1><p className="subtitle">Your ideas are moving. Here’s what’s happening across your digital space.</p></div><button className="primary-button" onClick={openBooking}>＋ Start a new website</button></section><section className="hero-banner"><div className="hero-copy"><p className="eyebrow light">YOUR CREATIVE PARTNER</p><h2>Good websites don’t just<br /><em>look good.</em> They feel right.</h2><p>From first sketch to final launch, we turn what’s in your head into something people remember.</p><button className="light-button" onClick={openBooking}>Tell us your idea <span>↗</span></button></div><div className="hero-art"><div className="art-orbit orbit-one" /><div className="art-orbit orbit-two" /><div className="art-sun">e<span>j</span></div><div className="art-note note-one">your next<br /><strong>chapter</strong> ✦</div><div className="art-note note-two">made with<br /><strong>intention.</strong></div></div><div className="slide-controls"><button onClick={() => setSlide((slide + 2) % 3)}>←</button><span>{String(slide + 1).padStart(2, '0')} / 03</span><button onClick={() => setSlide((slide + 1) % 3)}>→</button></div></section><section className="section-heading"><div><p className="eyebrow">YOUR PROJECTS</p><h2>Ideas in motion <span className="project-count">2 active</span></h2></div><button className="text-button" onClick={() => go('projects')}>View all projects <span>→</span></button></section><section className="project-grid">{projects.map((project) => <ProjectCard key={project.name} project={project} />)}<button className="add-project-card" onClick={openBooking}><span>＋</span><strong>Start another idea</strong><small>Make something people remember</small></button></section><section className="lower-grid"><div className="activity-panel"><div className="panel-title"><div><p className="eyebrow">LATEST ACTIVITY</p><h2>Small steps, big picture</h2></div><button className="more-button">•••</button></div><Activity icon="✦" title="Homepage direction approved" detail="Emmy J Studio · 2 hours ago" tone="coral-bg" /><Activity icon="▤" title="Content checklist is ready" detail="Sunday Table · Yesterday" tone="lime-bg" /></div><div className="tip-panel"><span className="tip-label">A LITTLE INSPIRATION</span><div className="tip-quote">“Design is the silent ambassador of your brand.”</div><div className="tip-author"><span className="author-avatar">PA</span><span>Paul Rand <small>Art director</small></span></div></div></section></>
+}
+function ProjectCard({ project }: { project: typeof projects[number] }) { return <article className="project-card"><div className={`project-thumb ${project.tone}`}><span>{project.name === 'Coming soon' ? '+' : project.name.slice(0, 2).toUpperCase()}</span><div className="thumb-lines" /></div><div className="project-info"><div className="project-top"><div><h3>{project.name}</h3><p>{project.type}</p></div><button className="more-button" aria-label="More options">•••</button></div><div className="progress-label"><span>{project.tag}</span><strong>{project.progress}%</strong></div><div className="progress-track"><div style={{ width: `${project.progress}%` }} className={`progress-fill ${project.tone}`} /></div><p className="project-date">{project.date}</p></div></article> }
+function Activity({ icon, title, detail, tone }: { icon: string, title: string, detail: string, tone: string }) { return <div className="activity-item"><span className={`activity-icon ${tone}`}>{icon}</span><div><strong>{title}</strong><p>{detail}</p></div><span className="activity-arrow">→</span></div> }
+function PageView({ title, eyebrow, subtitle, children }: { title: string, eyebrow: string, subtitle: string, children: React.ReactNode }) { return <section className="page-view"><div className="page-title"><div><p className="eyebrow">{eyebrow}</p><h1>{title}</h1><p className="subtitle">{subtitle}</p></div></div>{children}</section> }
+export default App

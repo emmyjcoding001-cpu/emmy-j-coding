@@ -1,0 +1,57 @@
+CREATE DATABASE IF NOT EXISTS emmy_j_coding;
+USE emmy_j_coding;
+
+CREATE TABLE IF NOT EXISTS users (
+  id BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+  username VARCHAR(80) NOT NULL,
+  email VARCHAR(190) NOT NULL UNIQUE,
+  password_hash VARCHAR(255) NOT NULL,
+  avatar_url VARCHAR(500),
+  phone VARCHAR(30),
+  auth_provider ENUM('password', 'google') NOT NULL DEFAULT 'password',
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE IF NOT EXISTS projects (
+  id BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+  user_id BIGINT UNSIGNED NULL,
+  name VARCHAR(160) NOT NULL,
+  website_type VARCHAR(100) NOT NULL,
+  brief TEXT,
+  contact_name VARCHAR(160),
+  contact_email VARCHAR(190),
+  contact_phone VARCHAR(30),
+  status VARCHAR(80) NOT NULL DEFAULT 'Brief received',
+  progress TINYINT UNSIGNED NOT NULL DEFAULT 0,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  CONSTRAINT projects_user_fk FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE SET NULL
+);
+
+CREATE TABLE IF NOT EXISTS booking_requests (
+  id BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+  project_id BIGINT UNSIGNED NOT NULL,
+  contact_name VARCHAR(160),
+  contact_email VARCHAR(190),
+  contact_phone VARCHAR(30),
+  submitted_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  CONSTRAINT booking_project_fk FOREIGN KEY (project_id) REFERENCES projects(id) ON DELETE CASCADE
+);
+
+CREATE TABLE IF NOT EXISTS project_messages (
+  id BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+  project_id BIGINT UNSIGNED NOT NULL,
+  sender ENUM('client', 'team') NOT NULL,
+  body TEXT NOT NULL,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  CONSTRAINT messages_project_fk FOREIGN KEY (project_id) REFERENCES projects(id) ON DELETE CASCADE
+);
+
+CREATE TABLE IF NOT EXISTS auth_accounts (
+  id BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+  user_id BIGINT UNSIGNED NOT NULL,
+  provider ENUM('password', 'google') NOT NULL,
+  provider_account_id VARCHAR(255),
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  CONSTRAINT auth_user_fk FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
+);
