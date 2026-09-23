@@ -8,7 +8,7 @@ import { fileURLToPath } from 'node:url'
 const app = express()
 const port = process.env.PORT || 4000
 const distPath = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../dist')
-const pool = mysql.createPool({ host: process.env.MYSQL_HOST, port: process.env.MYSQL_PORT || 3306, database: process.env.MYSQL_DATABASE, user: process.env.MYSQL_USER, password: process.env.MYSQL_PASSWORD, waitForConnections: true, connectionLimit: 10 })
+const pool = mysql.createPool({ host: process.env.MYSQL_HOST || process.env.MYSQLHOST, port: process.env.MYSQL_PORT || process.env.MYSQLPORT || 3306, database: process.env.MYSQL_DATABASE || process.env.MYSQLDATABASE, user: process.env.MYSQL_USER || process.env.MYSQLUSER, password: process.env.MYSQL_PASSWORD || process.env.MYSQLPASSWORD, waitForConnections: true, connectionLimit: 10 })
 app.use(cors({ origin: process.env.CLIENT_ORIGIN || 'http://localhost:5173' }))
 app.use(express.json())
 app.get('/api/contact', (_req, res) => res.json({ whatsapp: process.env.ADMIN_WHATSAPP || '08052586788' }))
