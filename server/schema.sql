@@ -5,7 +5,7 @@ CREATE TABLE IF NOT EXISTS users (
   id BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
   username VARCHAR(80) NOT NULL,
   email VARCHAR(190) NOT NULL UNIQUE,
-  password_hash VARCHAR(255) NOT NULL,
+  password_hash VARCHAR(255) NULL,
   avatar_url VARCHAR(500),
   phone VARCHAR(30),
   auth_provider ENUM('password', 'google') NOT NULL DEFAULT 'password',

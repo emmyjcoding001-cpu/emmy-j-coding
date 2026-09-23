@@ -12,10 +12,14 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "bcryptjs": "^3.0.3",
     "cors": "^2.8.6",
     "dotenv": "^18.0.3",
     "express": "^5.2.1",
+    "express-session": "^1.19.0",
     "mysql2": "^3.24.4",
+    "passport": "^0.7.0",
+    "passport-google-oauth20": "^2.0.0",
     "react": "^19.2.8",
     "react-dom": "^19.2.8"
   },
